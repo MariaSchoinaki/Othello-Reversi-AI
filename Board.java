@@ -16,7 +16,7 @@ class Board
 	
 	public Board() { 
         this.lastMove = new Move();
-        this.lastPlayer = B;
+        this.lastPlayer = W;
         this.dimension = 8;
         this.gameBoard = new int[dimension][dimension];
 
