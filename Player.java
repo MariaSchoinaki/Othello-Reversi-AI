@@ -11,7 +11,9 @@ class Player
         this.playerLetter = playerLetter;
     }
 	
-	public Move MiniMax(Board board) {return null;}
+	public Move MiniMax(Board board) {
+        return null;
+    }
 	
 	public Move max(Board board, int depth) {return null;}
 	

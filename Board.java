@@ -34,23 +34,34 @@ class Board
     }
 	
 	// copy constructor
-    public Board(Board board) {}
+    public Board(Board board) {
+        this.lastMove = board.lastMove;
+        this.lastPlayer = board.lastPlayer;
+        this.dimension = board.dimension;
+        this.gameBoard = new int[this.dimension][this.dimension];
+        for (int i=0;i<this.dimension;i++){
+            for (int j=0;j<this.dimension;j++){
+                this.gameBoard[i][j]= board.gameBoard[i][j];
+            }
+        }
+    }
 	
 	public void print() {
         for(int row = 0; row < this.dimension; row++)
         {
+            System.out.print("\u001B[42;42m|\u001B[0m");
             for(int col = 0; col < this.dimension; col++)
             {
                 switch (this.gameBoard[row][col]) {
-                case B:
-                    System.out.print("\u001B[30;47m 1 \u001B[0m");
-                    break; 
-                case W:
-                    System.out.print("\u001B[97;40m 2 \u001B[0m");
-                    break;
-                case EMPTY:
-                System.out.print("\u001B[32;45m G \u001B[0m"); 
-                }
+                    case W:
+                        System.out.print("\u001B[30;47m 2 \u001B[0m");
+                        break; 
+                    case B:
+                        System.out.print("\u001B[97;40m 1 \u001B[0m");
+                        break;
+                    case EMPTY:
+                    System.out.print("\u001B[42;42m__|\u001B[0m"); 
+                    }
             }
             System.out.println();
         }

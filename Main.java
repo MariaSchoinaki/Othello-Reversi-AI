@@ -16,16 +16,34 @@ public class Main {
                 if (length >= 1 && length <= 5) {
                     validInput = true;
                 } else {
-                    System.out.println("Difficalty level out of range. Please type a number between 1-5: ");
+                    System.out.println("\nDifficalty level out of range.\nPlease type a number between 1-5");
                 }
             } else {
                 in.next();
-                System.out.println("Type error. Please type a valid integer between 1-5.");
+                System.out.println("\nType error. Please type a valid integer between 1-5");
             }
         }
+        int turn = 0;
+        validInput = false;
 
-        Player playerWhite = new Player(length, 1);
-        Player playerBlack = new Player(length, 2);
+        while (!validInput) {
+            System.out.print("\nChoose if you want to play first or second.\nType 1 to play first or 2 to play second: ");
+            if (in.hasNextInt()) {
+                turn = in.nextInt();
+            if(turn == 1 || turn == 2){
+                validInput = true;
+            } else{
+                System.out.println("\nTurn number out of range.\nPlease type a number between 1 and 2");
+            }
+        } else{
+            in.next();
+            System.out.println("\nType error. Please type a valid integer between 1 and 2");
+        }
+    }
+
+
+        Player playerWhite = new Player(length, -1);
+        Player playerBlack = new Player(length, 1);
         Board board = new Board();
         board.print();
     }
