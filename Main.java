@@ -41,10 +41,24 @@ public class Main {
         }
     }
 
+        Player person = ((turn==1) ? new Player(length, Board.B): new Player(length, Board.W));
+        Player AI = ((turn==2) ? new Player(length, Board.W): new Player(length,Board.B));
 
-        Player playerWhite = new Player(length, -1);
-        Player playerBlack = new Player(length, 1);
+        
         Board board = new Board();
         board.print();
+
+        while(!board.isTerminal()){
+            switch(board.getLastPlayer()){
+                case Board.B:
+                    if(turn==1) System.out.println("its your turn!");
+                    break;
+                case Board.W:
+                    if(turn==2) System.out.println("its your turn!");
+                    break;
+
+            }
+            board.print();
+        }
     }
 }
