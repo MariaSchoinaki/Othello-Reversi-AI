@@ -12,10 +12,16 @@ class Player
     }
 	
 	public Move MiniMax(Board board) {
-        return null;
+        if (this.playerLetter == Board.B){
+            return max(new Board(board), 0);
+        }else {
+            return min(new Board(board), 0);
+        }
     }
 	
-	public Move max(Board board, int depth) {return null;}
+	public Move max(Board board, int depth) {
+        return null;
+    }
 	
 	public Move min(Board board, int depth) {return null;}
 }
