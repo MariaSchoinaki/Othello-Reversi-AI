@@ -14,12 +14,47 @@ class Board
 	
 	private int dimension;
 	
-	public Board() {}
+	public Board() { 
+        this.lastMove = new Move();
+        this.lastPlayer = B;
+        this.dimension = 8;
+        this.gameBoard = new int[dimension][dimension];
+
+        for(int row = 0; row < this.dimension; row++)
+        {
+            for(int col = 0; col < this.dimension; col++)
+            {
+                this.gameBoard[row][col] = EMPTY;
+            }
+        }
+        this.gameBoard[3][3] = B;
+        this.gameBoard[3][4] = W;
+        this.gameBoard[4][3] = W;
+        this.gameBoard[4][4] = B;
+    }
 	
 	// copy constructor
     public Board(Board board) {}
 	
-	public void print() {}
+	public void print() {
+        for(int row = 0; row < this.dimension; row++)
+        {
+            for(int col = 0; col < this.dimension; col++)
+            {
+                switch (this.gameBoard[row][col]) {
+                case B:
+                    System.out.print("\u001B[30;47m 1 \u001B[0m");
+                    break; 
+                case W:
+                    System.out.print("\u001B[97;40m 2 \u001B[0m");
+                    break;
+                case EMPTY:
+                System.out.print("\u001B[32;45m G \u001B[0m"); 
+                }
+            }
+            System.out.println();
+        }
+    }
 	
 	ArrayList<Board> getChildren(int letter) {return null;}
 	
@@ -64,6 +99,4 @@ class Board
     {
         this.lastPlayer = lastPlayer;
     }
-	
-	
 }
