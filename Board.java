@@ -140,4 +140,144 @@ class Board
             //System.out.println("Invalid move");
         //}
     }
+
+
+
+    Boolean is_Valid(int row, int col, int value){
+        boolean islegal = false;
+        int checker = -1 * value;
+        int x = row;
+        int y = col;
+        //first row
+        if(row == 0){
+            //left up edge
+            if(col == 0){
+                while(checker == gameBoard[x][y + 1]){
+                    y++;
+                    if(y == 7) break;
+                    if(gameBoard[x][y + 1] == 0) break;
+                    if(gameBoard[x][y + 1] == value){
+                        islegal = true;
+                        break;
+                    }
+                }
+                y = col;
+                while(checker == gameBoard[x + 1][y + 1]){
+                    y++;
+                    x++;
+                    if(x == 7 && y == 7)break;
+                    if(gameBoard[x + 1][y + 1] == 0) break;
+                    if(gameBoard[x + 1][y + 1] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                y = col;
+                while(checker == gameBoard[x + 1][y]){
+                    x++;
+                    if(x == 7)break;
+                    if(gameBoard[x + 1][y] == 0) break;
+                    if(gameBoard[x + 1][y] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                //right up edge    
+            }else if(col == 7){
+                while(checker == gameBoard[x][y - 1]){
+                    y--;
+                    if(y == 0) break;
+                    if(gameBoard[x][y - 1] == 0) break;
+                    if(gameBoard[x][y - 1] == value){
+                        islegal = true;
+                        break;
+                    }
+                }
+                y = col;
+                while(checker == gameBoard[x + 1][y - 1]){
+                    y--;
+                    x++;
+                    if(x == 7 && y == 0)break;
+                    if(gameBoard[x + 1][y - 1] == 0) break;
+                    if(gameBoard[x + 1][y - 1] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                y = col;
+                while(checker == gameBoard[x + 1][y]){
+                    x++;
+                    if(x == 7)break;
+                    if(gameBoard[x + 1][y] == 0) break;
+                    if(gameBoard[x + 1][y] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                //middle
+            }else{
+                while(checker == gameBoard[x][y + 1]){
+                    y++;
+                    if(y == 7) break;
+                    if(gameBoard[x][y + 1] == 0) break;
+                    if(gameBoard[x][y + 1] == value){
+                        islegal = true;
+                        break;
+                    }
+                }
+                y = col;
+                while(checker == gameBoard[x][y - 1]){
+                    y--;
+                    if(y == 0) break;
+                    if(gameBoard[x][y - 1] == 0) break;
+                    if(gameBoard[x][y - 1] == value){
+                        islegal = true;
+                        break;
+                    }
+                }
+                y = col;
+                while(checker == gameBoard[x + 1][y + 1]){
+                    y++;
+                    x++;
+                    if(x == 7 && y == 7)break;
+                    if(gameBoard[x + 1][y + 1] == 0) break;
+                    if(gameBoard[x + 1][y + 1] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                y = col;
+                while(checker == gameBoard[x + 1][y - 1]){
+                    y--;
+                    x++;
+                    if(x == 7 && y == 0)break;
+                    if(gameBoard[x + 1][y - 1] == 0) break;
+                    if(gameBoard[x + 1][y - 1] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+                y = col;
+                while(checker == gameBoard[x + 1][y]){
+                    x++;
+                    if(x == 7)break;
+                    if(gameBoard[x + 1][y] == 0) break;
+                    if(gameBoard[x + 1][y] == value){
+                        islegal = true;
+                        break;
+                    }  
+                }
+                x = row; 
+            }
+
+
+        }
+        return true;
+    }
 }
