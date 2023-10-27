@@ -67,7 +67,20 @@ class Board
         }
     }
 	
-	ArrayList<Board> getChildren(int letter) {return null;}
+	ArrayList<Board> getChildren(int letter) {
+        ArrayList<Board> children = new ArrayList<>();
+        for(int row = 0; row < this.gameBoard.length; row++)
+        {
+            for(int col = 0; col < this.gameBoard.length; col++){
+                if(this.is_Valid(row, col,letter)){
+                    Board child = new Board(this);
+                    child.makeMove(row, col, letter);
+                    children.add(child);
+                }
+            }
+        }
+        return children;
+    }
 	
 	public int evaluate () {return 0;}
 	
@@ -280,4 +293,6 @@ class Board
         }
         return true;
     }
+
+    
 }
