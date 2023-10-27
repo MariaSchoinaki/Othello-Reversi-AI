@@ -71,7 +71,26 @@ class Board
 	
 	public int evaluate () {return 0;}
 	
-	public boolean isTerminal() {return true;}
+	public boolean isTerminal() {
+        int sumB = 0; //score White
+        int sumW = 0;//score Black 
+        int sumE = 0;//sum of Empty squares
+        for (int i = 0; i<this.gameBoard.length; i++){
+            for(int j = 0; j<this.gameBoard.length; j++){
+                if(this.gameBoard[i][j] == W){
+                    sumW++;
+                }else if(this.gameBoard[i][j] == B){
+                    sumB++;
+                }else{
+                    sumE++;
+                }
+            }
+        }
+        if(sumW == 0 || sumB == 0){
+            return true;
+        }
+        return false;
+    }
 	
 	public Move getLastMove()
     {
@@ -109,5 +128,16 @@ class Board
     void setLastPlayer(int lastPlayer)
     {
         this.lastPlayer = lastPlayer;
+    }
+
+    void makeMove(int row, int col, int letter){
+        //if (isvalid(row,col,letter)){
+            this.gameBoard[row][col] = letter;  //it is valid and the player makes a move in the spot [row,col]
+            this.lastMove = new Move(row,col);  //store last players move
+            this.lastPlayer = letter;           //store last players letter
+            //method that flips the opponents checkers
+        //}else{
+            //System.out.println("Invalid move");
+        //}
     }
 }
