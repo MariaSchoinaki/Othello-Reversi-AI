@@ -6,6 +6,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int length = 0;
         boolean validInput = false;
+        Move moveP, moveAI;
 
         while (!validInput) {
             System.out.print("Choose difficalty level 1-5: ");
@@ -51,12 +52,28 @@ public class Main {
         while(!board.isTerminal()){
             switch(board.getLastPlayer()){
                 case Board.B:
-                    if(turn==1) System.out.println("its your turn!");
+                    if(turn==2) {
+                        System.out.println("its your turn!");
+                        moveP = person.MiniMax(board);
+                        System.out.println("Row: "+ moveP.getRow()+ "   Col: " + moveP.getCol()  );
+                        board.makeMove(moveP.getRow(), moveP.getCol(), Board.W);
+                    }else{
+                        moveAI = AI.MiniMax(board);
+                        System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
+                        board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.W);
+                    }
                     break;
                 case Board.W:
-                    if(turn==2) System.out.println("its your turn!");
+                    if(turn==1){
+                        System.out.println("its your turn!");
+                        moveP = person.MiniMax(board);
+                        board.makeMove(moveP.getRow(), moveP.getCol(), Board.B);
+                    }else{
+                        moveAI = AI.MiniMax(board);
+                        System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
+                        board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.B);
+                    }
                     break;
-
             }
             board.print();
         }
