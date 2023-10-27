@@ -148,7 +148,7 @@ class Board
             this.gameBoard[row][col] = letter;  //it is valid and the player makes a move in the spot [row,col]
             this.lastMove = new Move(row,col);  //store last players move
             this.lastPlayer = letter;           //store last players letter
-            //method that flips the opponents checkers
+            flipcheckers(row, col, letter);
         //}else{
             //System.out.println("Invalid move");
         //}
@@ -294,5 +294,136 @@ class Board
         return true;
     }
 
-    
+    void flipcheckers(int row, int col, int letter){
+        //if a move is made it flips the opponents checkers
+        int opponent = ((letter == W) ? B : W);
+
+        //flip up checkers
+        int i = row -1; //direction is up so it is previous row
+        int j = col;    //direction is up so same column
+
+        while (i > 0 && this.gameBoard[i][j] == opponent){  //while we are still within the table's bounds and the checker belongs to an opponent
+            if (this.gameBoard[i-1][j] == letter){          //if the checker is one of our own then we hava found the limit where we can flip the checkers
+                while(i>0 && this.gameBoard[i][j] == opponent){ //while there are still checkers of our opponent within our limit
+                    this.gameBoard[i][j] = letter;              //flip the checker
+                    i++;                                        //go to next row
+                }
+            }
+            i--;                                            //go to previous row to check if there is another opponent
+        }
+
+        //flip down checkers
+
+        i = row + 1;  //direction is down so it is next row
+        j = col;    //direction is down so same column
+
+        while (i < 7 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i+1][j] == letter){              //if the checker is one of our own then we hava found the limit where we can flip the checkers
+                while(i>0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    i--;
+                }
+            }
+            i++;
+        }
+
+        //flip right checkers
+
+        i = row; //direction is right so it is same row
+        j = col + 1; //direction is right so it is next column
+
+        while (j < 7 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i][j+1] == letter){
+                while(i>0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j--;
+                }
+            }
+            j++;
+        }
+
+        //flip left checkers
+
+        i = row; //direction is left so it is same row
+        j = col - 1; //direction is left so it is previous column
+
+        while (j > 0 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i][j-1] == letter){
+                while(i>0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j++;
+                }
+            }
+            j--;
+        }
+
+        //flip up left
+
+        i = row - 1; //direction is up left so it is previous row
+        j = col - 1; //direction is up left so it is previous column
+
+        while( i > 0 && j > 0 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i-1][j-1] == letter){
+                while(i > 0 && j > 0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j++;
+                    i++;
+                }
+            }
+            j--;
+            i--;
+        }
+
+        //flip up right
+
+        i = row - 1; //direction is up right so it is previous row
+        j = col + 1; //direction is up right so it is next column
+
+        while( i > 0 && j < 7 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i-1][j+1] == letter){
+                while(i > 0 && j > 0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j--;
+                    i++;
+                }
+            }
+            j++;
+            i--;
+        }
+
+        //flip down left
+
+        i = row + 1; //direction is down left so it is next row
+        j = col - 1; //direction is downt so it is previous column
+
+        while( i < 7 && j > 0 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i+1][j-1] == letter){
+                while(i < 7 && j > 0 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j++;
+                    i--;
+                }
+            }
+            j--;
+            i++;
+        }
+
+        //flip down right
+
+        i = row + 1; //direction is down right so it is next row
+        j = col + 1; //direction is down right so it is next column
+
+        while( i < 7 && j < 7 && this.gameBoard[i][j] == opponent){
+            if (this.gameBoard[i+1][j+1] == letter){
+                while(i < 7 && j < 7 && this.gameBoard[i][j] == opponent){
+                    this.gameBoard[i][j] = letter;
+                    j--;
+                    i--;
+                }
+            }
+            j++;
+            i++;
+        }
+
+    }
 }
