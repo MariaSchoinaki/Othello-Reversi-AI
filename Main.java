@@ -54,7 +54,10 @@ public class Main {
                 case Board.B:
                     if(turn==2) {
                         System.out.println("its your turn!");
-                        moveP = person.MiniMax(board);
+                        //moveP = person.MiniMax(board);
+                        System.out.println("Please select the spot you want to play. Insert first row and then column.");
+                        int r = in.nextInt(); int c = in.nextInt();
+                        moveP = new Move(r,c, Board.W);
                         System.out.println("Row: "+ moveP.getRow()+ "   Col: " + moveP.getCol()  );
                         board.makeMove(moveP.getRow(), moveP.getCol(), Board.W);
                     }else{
@@ -66,7 +69,10 @@ public class Main {
                 case Board.W:
                     if(turn==1){
                         System.out.println("its your turn!");
-                        moveP = person.MiniMax(board);
+                        //moveP = person.MiniMax(board);
+                        System.out.println("Please select the spot you want to play. Insert first row and then column.");
+                        int r = in.nextInt(); int c = in.nextInt();
+                        moveP = new Move(r,c, Board.B);
                         board.makeMove(moveP.getRow(), moveP.getCol(), Board.B);
                     }else{
                         moveAI = AI.MiniMax(board);
@@ -76,6 +82,8 @@ public class Main {
                     break;
             }
             board.print();
+            System.out.println("Press enter to continue");
+            in.nextLine();
         }
     }
 }
