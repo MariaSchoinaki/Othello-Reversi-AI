@@ -13,8 +13,10 @@ class Player
 	
 	public Move MiniMax(Board board) {
         if (this.playerLetter == Board.B){
+            //If the Black plays then it wants to maximize the heuristics value
             return max(new Board(board), 0);
         }else {
+            //If the White plays then it wants to minimize the heuristics value
             return min(new Board(board), 0);
         }
     }
