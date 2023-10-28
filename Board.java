@@ -83,7 +83,50 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
     }
 
 /*It's the heuristic that evaluats ........................................................................................................................       */
-	public int evaluate () {return 0;}
+	public int evaluate () {
+        int scoreB = 0;
+        int scoreW = 0; 
+        
+        for(int row = 0; row < this.dimension; row++) {
+            for(int col = 0; col < this.dimension; col++) {                
+                //edges
+                if((row == 0 || row == 7) && (col == 0 || col == 7)){       
+                    if(this.gameBoard[row][col] == B){
+                        scoreB += 1000;
+                    }else if(this.gameBoard[row][col] == W){
+                        scoreW += 1000;
+                    }
+                //purple limits
+                }else if(((row == 0 || row == 7) && (col >=1 && col <=6)) || ((row >= 1 && row <= 6) && (col == 0 || col == 7))) {
+                    if( this.gameBoard[row][col] == B) scoreB += 100;
+                    if( this.gameBoard[row][col] == W) scoreW += 100;
+                //everything else
+                }else if(row >= 1 && row <=  6 && col >= 1 && col <= 6){
+                    if( this.gameBoard[row][col] == B) scoreB += 1;
+                    if( this.gameBoard[row][col] == W) scoreW += 1;
+                }   
+            }
+        }
+    
+        for(int row = 0; row < this.dimension; row++) {
+            for(int col = 0; col < this.dimension; col++) {
+                if(this.gameBoard[row][col] == B) scoreB += 10;
+                if(this.gameBoard[row][col] == W) scoreW += 10;
+    
+                if((row == 0 || row == 7) && (col == 0 || col == 7)) {       
+                    if(this.gameBoard[row][col] == B) scoreB += 1000;
+                    if(this.gameBoard[row][col] == W) scoreW += 1000;
+                    
+                }
+                if((row != 0 && row != 7) && (col != 0 && col != 7)){       
+                    if(this.gameBoard[row][col] == B) scoreB += 100;
+                    if(this.gameBoard[row][col] == W) scoreW += 100;
+                }
+            } 
+        } 
+        
+        return scoreB - scoreW;
+    }
 	
 /*Wether a state is terminal or not. To wit the game is finished, if a player has no checkers left in the table to make a move, or if the board is full.          */
 	public boolean isTerminal() {
