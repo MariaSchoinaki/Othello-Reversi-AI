@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 class Player 
 {
 	private int maxDepth;
@@ -22,8 +25,50 @@ class Player
     }
 	
 	public Move max(Board board, int depth) {
-        return null;
+        Random r = new Random();
+
+        if(board.isTerminal() || (depth == this.maxDepth)){
+            return new Move(board.getLastMove().getRow(), board.getLastMove().getCol(), board.evaluate());
+        }
+        
+        ArrayList<Board> children = board.getChildren(Board.X);
+        Move maxMove = new Move(Integer.MIN_VALUE);
+
+        for(Board child: children){
+            Move move = min(child, depth + 1);
+
+            if(move.getValue() >= maxMove.getValue()){
+                if((move.getValue()) == maxMove.getValue()){
+                    if(r.nextInt(2) == 0)
+                    {
+                        maxMove.setRow(child.getLastMove().getRow());
+                        maxMove.setCol(child.getLastMove().getCol());
+                        maxMove.setValue(move.getValue());
+                    }
+                }else
+                {
+                    maxMove.setRow(child.getLastMove().getRow());
+                    maxMove.setCol(child.getLastMove().getCol());
+                    maxMove.setValue(move.getValue());
+                }
+            }
+
+        }
+        return maxMove;
     }
 	
-	public Move min(Board board, int depth) {return null;}
+	public Move min(Board board, int depth) {
+        Random r = new Random();
+        
+        if(board.isTerminal() || (depth == this.maxDepth)){
+            return new Move(board.getLastMove().getRow(), board.getLastMove().getCol(), board.evaluate());
+        }
+        ArrayList<Board> children = board.getChildren(Board.W);
+        
+        Move minMove = new Move();
+        
+
+        
+        return minMove;
+    }
 }
