@@ -108,22 +108,6 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
             }
         }
     
-        for(int row = 0; row < this.dimension; row++) {
-            for(int col = 0; col < this.dimension; col++) {
-                if(this.gameBoard[row][col] == B) scoreB += 10;
-                if(this.gameBoard[row][col] == W) scoreW += 10;
-    
-                if((row == 0 || row == 7) && (col == 0 || col == 7)) {       
-                    if(this.gameBoard[row][col] == B) scoreB += 1000;
-                    if(this.gameBoard[row][col] == W) scoreW += 1000;
-                    
-                }
-                if((row != 0 && row != 7) && (col != 0 && col != 7)){       
-                    if(this.gameBoard[row][col] == B) scoreB += 100;
-                    if(this.gameBoard[row][col] == W) scoreW += 100;
-                }
-            } 
-        } 
         
         return scoreB - scoreW;
     }
@@ -172,7 +156,6 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
         int y = col;
     //Checks if the square is empty
         if(inBoarders(row, col) && this.gameBoard[row][col] != EMPTY) {
-            System.out.println("Invalid move! Please select an empty square");
             return false;
         }
     //Checks if the move follows the game rules
@@ -282,13 +265,14 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
         int y = col;    //direction is up so same column
 
         while (x > 0 && this.gameBoard[x][y] == opponent) {  //while we are still within the table's bounds and the checker belongs to an opponent
-            x--;
             if (this.gameBoard[x - 1][y] == value){                    //if the checker is one of our own then we hava found the limit where we can flip the checkers
                 while(this.gameBoard[x][y] == opponent){               //while there are still checkers of our opponent within our limit
                     this.gameBoard[x][y] = value;                      //flip the checker
                     x++;                                               //go to next row
                 }
             }
+            x--;
+            
         }
 
         //down vertically
