@@ -43,7 +43,7 @@ public class Main {
     }
 
         Player person = ((turn==1) ? new Player(length, Board.B): new Player(length, Board.W));
-        Player AI = ((turn==2) ? new Player(length, Board.W): new Player(length,Board.B));
+        Player AI = ((turn==2) ? new Player(length, Board.B): new Player(length,Board.W));
 
         
         Board board = new Board();
