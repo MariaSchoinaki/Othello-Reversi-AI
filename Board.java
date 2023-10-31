@@ -107,8 +107,6 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
                 }   
             }
         }
-    
-        
         return scoreB - scoreW;
     }
 	
@@ -134,6 +132,16 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
         }
         return false;
     }
+/*It's checking whether the player with color "value" can make at least one move to the board. If he can't he is blocked and loses his turn.                      */
+    public boolean isBlocked(int value){
+        boolean isblocked = true;
+        for (int i = 0; i < this.dimension; i++) {
+            for(int j = 0; j < this.dimension; j++) {
+                if(isValid(i, j, value)) isblocked = false;
+            }
+        }
+        return isblocked;
+    }
 
 /*It's changing the board so that the current board must have the current move that just had been made. The move must be valid or else a message is printed.      */
     void makeMove(int row, int col, int value) {
@@ -149,7 +157,7 @@ first possible move, if it's valid, flipping the checkers of the opponent so to 
     }
 
 /*It's checking wether a move is valid or not. If it's an empty square that encloses 1 or more of the opponent's checkers at at least one of the 8 directions.    */
-    Boolean isValid(int row, int col, int value) {
+    public boolean isValid(int row, int col, int value) {
         boolean islegal = false;
         int opponent = -1 * value;
         int x = row;
