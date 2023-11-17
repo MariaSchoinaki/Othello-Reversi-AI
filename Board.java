@@ -426,4 +426,8 @@ opponents flip and change value to the value of the player that made the move.  
     public int[][] getGameBoard() {
         return this.gameBoard;
     }
+
+    public int getGameDimension(){
+        return this.dimension;
+    }
 }

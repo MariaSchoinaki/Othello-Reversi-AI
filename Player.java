@@ -89,4 +89,8 @@ class Player
         }
         return minMove;
     }
+
+    public void setMaxDepth(int x){ this.maxDepth = x;}
+    
+    public void setPlayerLetter(int letter){this.playerLetter = letter;}
 }
