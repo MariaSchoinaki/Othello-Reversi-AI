@@ -42,7 +42,6 @@ public class Main {
         }
     }
 
-        Player person = ((turn==1) ? new Player(length, Board.B): new Player(length, Board.W));
         Player AI = ((turn==2) ? new Player(length, Board.B): new Player(length,Board.W));
 
         
@@ -53,31 +52,53 @@ public class Main {
             switch(board.getLastPlayer()){
                 case Board.B:
                     if(turn==2) {
-                        System.out.println("its your turn!");
-                        //moveP = person.MiniMax(board);
-                        System.out.println("Please select the spot you want to play. Insert first row and then column.");
-                        int r = in.nextInt(); int c = in.nextInt();
-                        moveP = new Move(r,c, Board.W);
-                        System.out.println("Row: "+ moveP.getRow()+ "   Col: " + moveP.getCol()  );
-                        board.makeMove(moveP.getRow(), moveP.getCol(), Board.W);
+                        System.out.println("Its your turn!");
+                        if(board.isBlocked(Board.W)){
+                            System.out.println("You can't play. It's AI turn again");
+                            board.setLastPlayer(Board.W);
+                            break;
+                        }else{
+                           System.out.println("Please select the spot you want to play. Insert first row and then column."); 
+                            int r = in.nextInt(); int c = in.nextInt();
+                            moveP = new Move(r,c, Board.W);
+                            System.out.println("Row: "+ moveP.getRow()+ "   Col: " + moveP.getCol()  );
+                            board.makeMove(moveP.getRow(), moveP.getCol(), Board.W);
+                        }
                     }else{
-                        moveAI = AI.MiniMax(board);
-                        System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
-                        board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.W);
+                        if(board.isBlocked(Board.W)){
+                            System.out.println("AI is blocked! Its your turn.");
+                            board.setLastPlayer(Board.W);
+                            break;
+                        }else{
+                            moveAI = AI.MiniMax(board);
+                            System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
+                            board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.W);
+                        }
                     }
                     break;
                 case Board.W:
                     if(turn==1){
-                        System.out.println("its your turn!");
-                        //moveP = person.MiniMax(board);
-                        System.out.println("Please select the spot you want to play. Insert first row and then column.");
-                        int r = in.nextInt(); int c = in.nextInt();
-                        moveP = new Move(r,c, Board.B);
-                        board.makeMove(moveP.getRow(), moveP.getCol(), Board.B);
+                        if(board.isBlocked(Board.B)){
+                            System.out.println("You are blocked! It's AI's turn now.");
+                            board.setLastPlayer(Board.B);
+                            break;
+                        }else{
+                            System.out.println("Its your turn!");
+                            System.out.println("Please select the spot you want to play. Insert first row and then column.");
+                            int r = in.nextInt(); int c = in.nextInt();
+                            moveP = new Move(r,c, Board.B);
+                            board.makeMove(moveP.getRow(), moveP.getCol(), Board.B);
+                        }
                     }else{
-                        moveAI = AI.MiniMax(board);
-                        System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
-                        board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.B);
+                        if(board.isBlocked(Board.B)){
+                            System.out.println("AI is blocked! It's your turn.");
+                            board.setLastPlayer(Board.B);
+                            break;
+                        }else{
+                            moveAI = AI.MiniMax(board);
+                            System.out.println("Row: "+ moveAI.getRow()+ "   Col: " + moveAI.getCol()  );
+                            board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.B);
+                        }
                     }
                     break;
             }
