@@ -22,11 +22,12 @@ import javax.swing.SwingUtilities;
 
 public class Window extends JPanel implements MouseListener {
     
-    Player player = new Player();
-    Player AI = new Player();
-    int playerTurn;
+    Player player = new Player(1, Board.B);
+    Player AI = new Player(1, Board.W); //preselected values
+    int playerTurn = 1;                     //preselected 
     Board board = new Board();
     int[][] boardData;
+    int AIscore, playerScore;
 
     JFrame frame = new JFrame();
     JPanel startingScreen = new JPanel();
@@ -256,7 +257,10 @@ public class Window extends JPanel implements MouseListener {
                 first.setBounds(290, 230, 80, 30);
                 second.setBounds(290, 265, 80, 30);
 
-                //space to add preselected buttons if we want
+                //preselected buttons in case player clicks start without selecting difficulty and turn
+                one.setSelected(true);
+                first.setSelected(true);
+
 
                 //add buttons to starting screen panel
                 startingScreen.add(startgame); 
@@ -301,13 +305,15 @@ public class Window extends JPanel implements MouseListener {
                                 g.setColor(Color.white);
                                 g.fillOval(10 + i*60, 10+j*60, 40, 40);
                                 g.setColor(Color.GRAY);
-                    	        g.drawOval(10+i * 60, 10+j * 60, 40, 40);
+                    	        g.drawOval(15+i * 60, 15+j * 60, 30, 30);
+                                g.drawOval(10 + i*60, 10+j*60, 40, 40);
                                 break;
                             case Board.B:
                                 g.setColor(Color.black);
                                 g.fillOval(10 + i*60, 10+j*60, 40, 40);
                                 g.setColor(Color.GRAY);
-                    	        g.drawOval(10+i * 60, 10+j * 60, 40, 40);
+                    	        g.drawOval(15+i * 60, 15+j * 60, 30, 30);
+                                g.drawOval(10 + i*60, 10+j*60, 40, 40);
                                 break;
                         }
                     }
@@ -325,13 +331,18 @@ public class Window extends JPanel implements MouseListener {
                     }else{
                         g.drawString("Your turn!", 30, 500);
                     }
+                    playerScore = board.getScores()[0];
+                    AIscore = board.getScores()[1];
                 }else{
                     if(board.getLastPlayer() == Board.W){
                         g.drawString("AI's Turn! Click to continue.", 30, 500);
                     }else{
                         g.drawString("Your turn!", 30, 500);
                     }
+                    playerScore = board.getScores()[1];
+                    AIscore = board.getScores()[0];
                 }
+                g.drawString(("AI: " + AIscore + " | You: " + playerScore), 30, 530);
 
 
             }
