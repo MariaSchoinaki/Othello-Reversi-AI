@@ -396,7 +396,26 @@ opponents flip and change value to the value of the player that made the move.  
         }
 
     }
-	
+
+    
+    int[] getScores(){
+        int scoreB = 0, scoreW = 0;
+        for(int i = 0; i < this.dimension; i++){
+            for(int j = 0; j < this.dimension; j++){
+                switch (this.gameBoard[i][j]) {
+                    case B:
+                        scoreB+=1;
+                        break;
+                    case W:
+                        scoreW+=1;
+                        break;
+                }
+            }
+        }
+        return new int[] {scoreB, scoreW};
+    }
+
+
 	void setGameBoard(int[][] gameBoard) {
         for(int i = 0; i < this.dimension; i++) {
             for(int j = 0; j < this.dimension; j++) {
