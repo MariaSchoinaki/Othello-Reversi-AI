@@ -28,16 +28,13 @@ public class Window extends JPanel implements MouseListener {
     Board board = new Board();
     int[][] boardData;
     int AIscore, playerScore;
+    ArrayList<Move> availableMoves;
 
     JFrame frame = new JFrame();
     JPanel startingScreen = new JPanel();
-    JPanel panel = new JPanel();
+    JPanel gameScreen = new JPanel();
     JPanel endScreen = new JPanel();
 
-    // JLabel label = new JLabel("Enter your name:");
-    // JTextField textField = new JTextField();
-    // JButton button = new JButton("Say Hello!");
-    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     public Window(){
 
@@ -49,11 +46,11 @@ public class Window extends JPanel implements MouseListener {
 
         //Panels Dimensions
         startingScreen.setPreferredSize(new Dimension(490,510));
-        panel.setPreferredSize(new Dimension(490,510));
+        gameScreen.setPreferredSize(new Dimension(490,510));
         endScreen.setPreferredSize(new Dimension(490,510));
         frame.setResizable(false);      //to not resize window
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(45,78,90));  //Window background color
+        frame.getContentPane().setBackground(new Color(240,255,240));  //Window background color
 
 
         //Buttons
@@ -196,11 +193,11 @@ public class Window extends JPanel implements MouseListener {
         });
 
         //when player wants to start their game, the starting screen with all
-        //the player's choises are removed and the main screen (panel) is added
+        //the player's choises are removed and the main screen (gameScreen) is added
         startgame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 frame.remove(startingScreen);
-                frame.add(panel);
+                frame.add(gameScreen);
                 frame.pack();
                 frame.repaint();
             }
@@ -223,14 +220,14 @@ public class Window extends JPanel implements MouseListener {
 
 
         //----------------------------------------------------------------------------------
-        //starting screen panel formating
+        //starting screen gameScreen formating
 
         startingScreen = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);
 
-                g.setColor(new Color(230,230,250));
+                g.setColor(new Color(230,230,250));             
                 g.fillRect(0, 0, 1000, 1000);
                 
                 //add image
@@ -262,7 +259,7 @@ public class Window extends JPanel implements MouseListener {
                 first.setSelected(true);
 
 
-                //add buttons to starting screen panel
+                //add buttons to starting screen gameScreen
                 startingScreen.add(startgame); 
                 startingScreen.add(one); startingScreen.add(two); startingScreen.add(three); startingScreen.add(four); startingScreen.add(five);
                 startingScreen.add(first); startingScreen.add(second);
@@ -280,8 +277,8 @@ public class Window extends JPanel implements MouseListener {
 
         startingScreen.addMouseListener(this);
 
-        //game scree panel formating
-        panel = new JPanel(){
+        //game screen gameScreen formating
+        gameScreen = new JPanel(){
             @Override
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -289,7 +286,7 @@ public class Window extends JPanel implements MouseListener {
                 //empty board
                 for(int i = 0; i < board.getGameDimension(); i++){
                     for(int j = 0; j < board.getGameDimension(); j++){
-                        g.setColor(new Color(11,102,35));
+                        g.setColor(new Color(11,102,35));           //green backgound
                         g.fillRect(i * 60, j * 60, 60, 60);
                         g.setColor(Color.black);
                         g.drawRect(i*60, j*60, 60, 60); //draw black square border
@@ -318,32 +315,59 @@ public class Window extends JPanel implements MouseListener {
                         }
                     }
                 }
+                int playerColor = ((playerTurn == 1) ? Board.B : Board.W);
+                availableMoves = board.availableMoves(playerColor);
+                for(Move move: availableMoves){
+                    g.setColor(new Color(211,211,211, 50));
+                    g.fillOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
+                    g.setColor(Color.GRAY);
+                    g.drawOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
+                    g.drawOval(15 + 60*move.getRow(), 15+ 60*move.getCol() , 30 , 30);
+                }
+                
+                //mark the last move
+                g.setColor(Color.red);
+                g.drawRect(60*board.getLastMove().getRow(),60*board.getLastMove().getCol() ,60 ,60 );
 
-                //scores to be added
-                //if player cant play, display message
-                //display move messages
 
-                g.setColor(Color.black);
-                g.setFont(new Font("Georgia", Font.PLAIN, 15));
+                g.setColor(Color.red);
+                g.setFont(new Font("Georgia", Font.ITALIC, 15));
                 if(playerTurn == 1){
                     if(board.getLastPlayer() == Board.B){
                         g.drawString("AI's Turn! Click to continue.", 30, 500);
+                        if(board.isBlocked(Board.W)){
+                            g.drawString("AI can't play. It's your turn again!", 30, 545);
+                            board.setLastPlayer(Board.W);
+                        }
                     }else{
                         g.drawString("Your turn!", 30, 500);
+                        if(board.isBlocked(Board.B)){
+                            g.drawString("You can't play. It's AI's turn again!", 30, 545);
+                            board.setLastPlayer(Board.B);
+                        }
                     }
                     playerScore = board.getScores()[0];
                     AIscore = board.getScores()[1];
                 }else{
                     if(board.getLastPlayer() == Board.W){
                         g.drawString("AI's Turn! Click to continue.", 30, 500);
+                        if(board.isBlocked(Board.B)){
+                            g.drawString("AI can't play. It's your turn again!", 30, 545);
+                            board.setLastPlayer(Board.B);
+                        }
                     }else{
                         g.drawString("Your turn!", 30, 500);
+                        if(board.isBlocked(Board.W)){
+                            g.drawString("You can't play. It's AI's turn again!", 30, 545);
+                            board.setLastPlayer(Board.W);
+                        }
                     }
                     playerScore = board.getScores()[1];
                     AIscore = board.getScores()[0];
                 }
+                g.setColor(Color.black);
+                g.setFont(new Font("Georgia", Font.PLAIN, 15));
                 g.drawString(("AI: " + AIscore + " | You: " + playerScore), 30, 530);
-
 
             }
 
@@ -353,11 +377,11 @@ public class Window extends JPanel implements MouseListener {
             }
         };
 
-        // Adding action listener to panel
-        panel.addMouseListener(this);
+        // Adding action listener to gameScreen
+        gameScreen.addMouseListener(this);
 
 
-        //end screen panel formating
+        //end screen gameScreen formating
 
         endScreen = new JPanel(){
             @Override
@@ -368,15 +392,28 @@ public class Window extends JPanel implements MouseListener {
                 g.setColor(new Color(230,230,250));
                 g.fillRect(  0,   0, 1000, 1000);
 
+                // Button locations and size
+                newGame.setBounds(90, 330, 100, 45);
+                exit.setBounds(300, 330, 100, 45);
+
                 // try {                    
                 //     g.drawImage(ImageIO.read(new File("browndaisy.jpg")),  0,  0,  null);
                 // } catch (IOException e) {
                 //     e.printStackTrace();
                 // }
 
-                //scores to be added
+                
+                playerScore = ((playerTurn == 1) ? board.getScores()[0] : board.getScores()[1]);
+                AIscore = ((playerTurn == 1) ? board.getScores()[1] : board.getScores()[0]);
 
-                //text to be added
+                g.setColor(Color.black);
+                g.setFont(new Font("Georgia", Font.BOLD, 19));
+                g.drawString("Game Over!", 180, 180);
+                g.setFont(new Font("Georgia", Font.PLAIN, 15));
+                g.drawString("You scored "+playerScore+" points and the AI scored "+AIscore+" points.", 90, 215);
+                if(playerScore >= AIscore) g.drawString("You won!!",210 , 250 ); //to be checked
+                else g.drawString("AI won. Better luck next time!", 145 , 250 );
+                
 
                 endScreen.add(newGame);
                 endScreen.add(exit);
@@ -397,7 +434,7 @@ public class Window extends JPanel implements MouseListener {
     @Override
     public void mousePressed(MouseEvent arg0){
         int x,y, i = 0, j = 0;
-        x =arg0.getX();         //mouse coordinates
+        x = arg0.getX();         //mouse coordinates
         y = arg0.getY();
 
         j = y/60;
@@ -406,7 +443,7 @@ public class Window extends JPanel implements MouseListener {
         frame.repaint();
 
         if(board.isTerminal()){
-            frame.remove(panel);
+            frame.remove(gameScreen);
             frame.add(endScreen);
             frame.pack();
             frame.repaint();
@@ -422,7 +459,7 @@ public class Window extends JPanel implements MouseListener {
                     Move moveAI = AI.MiniMax(board);
                     board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.W);
                 }
-                panel.repaint();
+                gameScreen.repaint();
                 break;
             case Board.W:
                 if(playerTurn == 1){   //player plays 
@@ -433,7 +470,7 @@ public class Window extends JPanel implements MouseListener {
                     Move moveAI = AI.MiniMax(board);
                     board.makeMove(moveAI.getRow(), moveAI.getCol(), Board.B);
                 }
-                panel.repaint();
+                gameScreen.repaint();
                 break;
         }
     }
