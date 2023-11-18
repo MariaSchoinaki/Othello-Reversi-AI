@@ -397,7 +397,22 @@ opponents flip and change value to the value of the player that made the move.  
 
     }
 
-    
+   
+    ArrayList<Move> availableMoves(int color){
+        ArrayList<Move> availableMoves = new ArrayList<Move>();
+
+        for(int row = 0; row < this.gameBoard.length; row++) {
+            for(int col = 0; col < this.gameBoard.length; col++) {
+                if(this.isValid(row, col, color)) {                
+                    Move move = new Move(row,col,color);  
+                    availableMoves.add(move);
+                }
+            }
+        }
+
+        return availableMoves;
+    }
+
     int[] getScores(){
         int scoreB = 0, scoreW = 0;
         for(int i = 0; i < this.dimension; i++){
