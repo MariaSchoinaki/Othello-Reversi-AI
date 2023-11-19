@@ -90,31 +90,40 @@ valid move, flipping the right opponents checkers. Used in the minimax algo.*/
         return children;
     }
 
-/*It's the heuristic that evaluates ........................................................................................................................       */
+/*It's the heuristic that evaluates each piece of the board*/
 	public int evaluate () {
         int scoreB = 0;                                                 //score for the Black player
         int scoreW = 0;                                                 //score for the White player
         
+        if(isBlocked(W)) scoreB+=800;                                   //moves that blocks the opponent,
+        if(isBlocked(B)) scoreW+=800;                                   //gives mobility to the player
+
+        scoreB+=(availableMoves(W).size())*(-50);                       //the minimum the possible moves of the opponent,
+        scoreW+=(availableMoves(B).size())*(-50);                       //the better mobility fore the player
+
         for(int row = 0; row < this.dimension; row++) {
             for(int col = 0; col < this.dimension; col++) {                
                 //edges
                 if((row == 0 || row == 7) && (col == 0 || col == 7)){   //edge pieces are the most important
                     if(this.gameBoard[row][col] == B){                  //so we give great value if a player has
                         scoreB += 1000;                                 //claimed a corner
+                        if(this.gameBoard[row][col+(int)Math.pow(-1, col)] == B) scoreB += 300; //under, up, left or right of the
+                        if(this.gameBoard[row+(int)Math.pow(-1, row)][col] == B) scoreB += 300; //edge piece(corner)
                     }else if(this.gameBoard[row][col] == W){
                         scoreW += 1000;
+                        if(this.gameBoard[row][col+(int)Math.pow(-1, col)] == W) scoreW += 300; //chain of claimed pieces
+                        if(this.gameBoard[row+(int)Math.pow(-1, row)][col] == W) scoreW += 300; //stability
                     }
                 //limits
                 }else if(((row == 0 || row == 7) && (col >=1 && col <=6)) || ((row >= 1 && row <= 6) && (col == 0 || col == 7))) {
-                    if( this.gameBoard[row][col] == B) scoreB += 100;   //the second most important is the limits of the 
-                    if( this.gameBoard[row][col] == W) scoreW += 100;   //board, so we give an average value
-                //everything else
-                }else if(row >= 1 && row <=  6 && col >= 1 && col <= 6){
-                    if( this.gameBoard[row][col] == B) scoreB += 1;     //every other spot in the middle of the board
-                    if( this.gameBoard[row][col] == W) scoreW += 1;     //we value it as one point
-                }   
+                    if(this.gameBoard[row][col] == B) scoreB += 100;   //the second most important is the limits of the 
+                    if(this.gameBoard[row][col] == W) scoreW += 100;   //board, so we give an average value
+                }    
             }
         }
+        scoreB+=getScores()[0]*10;                                      //every spot of the board
+        scoreW+=getScores()[1]*10;                                      //we value it as ten points
+
         return scoreB - scoreW;                                         //final value of the board is the difference of of the scores of the two players
     }
 	
@@ -125,6 +134,8 @@ checkers left in the table to make a move, or if the board is full.          */
         int sumW = 0;                                   //white checkers in the board 
         int sumE = 0;                                   //empty squares in the board 
 
+        if(isBlocked(B) && isBlocked(W)) return true;   //if no one can make a possible move, the game is over
+        
         for (int i = 0; i < this.dimension; i++) {
             for(int j = 0; j < this.dimension; j++) {
                 if(this.gameBoard[i][j] == W) {
@@ -136,9 +147,9 @@ checkers left in the table to make a move, or if the board is full.          */
                 }
             }
         }
-        if(sumW == 0 || sumB == 0 || sumE == 0) {       //if there are no available spots or one of the players
-            return true;                                //has no pawns on the board, the game has ended
-        }
+        if( sumB == 0 || sumW == 0 || (sumE == 0)) {    //if there are no available spots or one of the players
+            return true;                                //has no pawns on the board, the game has ended              
+        }                                               
         return false;
     }
 /*It's checking whether the player with color "value" can make at least one move to 

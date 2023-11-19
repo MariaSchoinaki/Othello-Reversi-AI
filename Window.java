@@ -229,14 +229,7 @@ public class Window extends JPanel implements MouseListener {
 
                 g.setColor(new Color(230,230,250));             
                 g.fillRect(0, 0, 1000, 1000);
-                
-                //add image
-                // try{
-                //     g.drawImage(ImageIO.read(new File("browndaisy.jpg")),0,0,null);
-                // } catch (IOException e){
-                //     e.printStackTrace();
-                // }
-
+            
                 startgame.setBounds(190,100,100,45);
 
                 g.setFont(new Font("Georgia", Font.BOLD, 17));
@@ -317,14 +310,15 @@ public class Window extends JPanel implements MouseListener {
                 }
                 int playerColor = ((playerTurn == 1) ? Board.B : Board.W);
                 availableMoves = board.availableMoves(playerColor);
-                for(Move move: availableMoves){
-                    g.setColor(new Color(211,211,211, 50));
-                    g.fillOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
-                    g.setColor(Color.GRAY);
-                    g.drawOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
-                    g.drawOval(15 + 60*move.getRow(), 15+ 60*move.getCol() , 30 , 30);
+                if(board.getLastPlayer() != playerColor) {
+                    for(Move move: availableMoves){
+                        g.setColor(new Color(211,211,211, 50));
+                        g.fillOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
+                        g.setColor(Color.GRAY);
+                        g.drawOval(10 + 60*move.getRow(), 10+ 60*move.getCol() , 40 , 40);
+                        g.drawOval(15 + 60*move.getRow(), 15+ 60*move.getCol() , 30 , 30);
+                    }
                 }
-                
                 //mark the last move
                 g.setColor(Color.red);
                 g.drawRect(60*board.getLastMove().getRow(),60*board.getLastMove().getCol() ,60 ,60 );
@@ -396,13 +390,6 @@ public class Window extends JPanel implements MouseListener {
                 newGame.setBounds(90, 330, 100, 45);
                 exit.setBounds(300, 330, 100, 45);
 
-                // try {                    
-                //     g.drawImage(ImageIO.read(new File("browndaisy.jpg")),  0,  0,  null);
-                // } catch (IOException e) {
-                //     e.printStackTrace();
-                // }
-
-                
                 playerScore = ((playerTurn == 1) ? board.getScores()[0] : board.getScores()[1]);
                 AIscore = ((playerTurn == 1) ? board.getScores()[1] : board.getScores()[0]);
 
