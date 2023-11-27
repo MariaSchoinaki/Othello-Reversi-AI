@@ -25,6 +25,12 @@ and play on your terminal.<br>
 Note: For the printing of the game board we used unicodes for coloring, so it may not be recognized from your terminal.
 
 ## Features
+- Responsive AI using MinMax algorithm with alpha-beta pruning
+- Customizable depth for the MinMax algorithm, selected by the user (1-5 can be visualized as difficalty level)
+- Adaptable turn-user can choose if he wants to play first or second
+- Possible valid moves for the user are provided, to help him play easier
+- Error messages for invalid moves-checking for users miss
+- Command line and GUI implementation
 
 ## Results
 ![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/41ceda0c-4e97-415f-ba68-4a9d720a8196)
