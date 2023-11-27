@@ -28,6 +28,8 @@ Note: For the printing of the game board we used unicodes for coloring, so it ma
 
 ## Results
 ![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/41ceda0c-4e97-415f-ba68-4a9d720a8196)
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/4ad7f8cf-fdc3-41c5-9034-d84f1ac28e35)
+
 
 
 ## Collaborators
