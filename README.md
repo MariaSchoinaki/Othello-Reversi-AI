@@ -24,6 +24,12 @@ Alternatively you can run the following commands
 and play on your terminal.<br>
 Note: For the printing of the game board we used unicodes for coloring, so it may not be recognized from your terminal.
 
+## Features
+
+## Results
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/d2615130-7d11-43a1-bb44-db787a7a166e)
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/e31ef394-fc14-415b-8712-28032f735fc1)
+
 ## Collaborators
 - [Eleni Kechrioti](https://github.com/EleniKechrioti)
 - [Maria Schoinaki](https://github.com/MariaSchoinaki)
