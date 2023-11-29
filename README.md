@@ -33,10 +33,10 @@ Note: For the printing of the game board we used unicodes for coloring, so it ma
 - Command line and GUI implementation
 
 ## Results
-![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/41ceda0c-4e97-415f-ba68-4a9d720a8196)
-![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/4ad7f8cf-fdc3-41c5-9034-d84f1ac28e35)
-
-
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/94d9cdd9-334a-444a-b369-152b56f26af4)
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/a652a0d1-61a7-4292-aea2-898ca319cc01)
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/af3267c7-d168-4448-9f37-d3c21095e5b7)
+![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/1686061b-5efd-4690-9258-03431f40a75f)
 
 ## Collaborators
 - [Eleni Kechrioti](https://github.com/EleniKechrioti)
