@@ -4,6 +4,14 @@ Othello Reversi is a java based game build with graphics for our Artificial Inte
 Othello is a two-player game, and in this project, the player plays against the AI, which is implemented with the Minimax algorithm using a-b pruning.
 Our report for this project can be found in [greek](https://github.com/MariaSchoinaki/Othello-Reversi/blob/main/report_greek.pdf) and in [english](https://github.com/MariaSchoinaki/Othello-Reversi/blob/main/report_english.pdf).
 
+## Features
+- Responsive AI using MinMax algorithm with alpha-beta pruning.
+- Customizable depth for the MinMax algorithm, selected by the user. (1-5 can be visualized as difficalty level)
+- Adaptable turn-user can choose if he wants to play first or second.
+- Possible valid moves for the user are provided, to help him play easier.
+- Error messages for invalid moves-checking for users miss.
+- Command line and GUI implementation.
+
 ## How to play
 1. Clone the project.
 2. Open your terminal.
@@ -23,14 +31,6 @@ Alternatively you can run the following commands
   ```
 and play on your terminal.<br>
 Note: For the printing of the game board we used unicodes for coloring, so it may not be recognized from your terminal.
-
-## Features
-- Responsive AI using MinMax algorithm with alpha-beta pruning
-- Customizable depth for the MinMax algorithm, selected by the user (1-5 can be visualized as difficalty level)
-- Adaptable turn-user can choose if he wants to play first or second
-- Possible valid moves for the user are provided, to help him play easier
-- Error messages for invalid moves-checking for users miss
-- Command line and GUI implementation
 
 ## Results
 ![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/94d9cdd9-334a-444a-b369-152b56f26af4)
