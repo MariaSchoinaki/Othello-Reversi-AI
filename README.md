@@ -30,7 +30,7 @@ Alternatively you can run the following commands
   >>java Main
   ```
 and play on your terminal.<br>
-Note: For the printing of the game board we used unicodes for coloring, so it may not be recognized from your terminal.
+**Note:** For the printing of the game board we used unicodes for coloring, so it may not be recognized from your terminal.
 
 ## Results
 ![image](https://github.com/MariaSchoinaki/Othello-Reversi/assets/132781870/94d9cdd9-334a-444a-b369-152b56f26af4)
